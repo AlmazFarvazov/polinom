@@ -8,7 +8,9 @@ public class Polinom {
     private MySortedMap<Integer, Integer> monoms;
 
     public static void main(String[] args) {
-        Polinom p  = new Polinom("/home/almaz/IdeaProjects/Polinom/test.txt");
+        Polinom p  = new Polinom("/home/almaz/Загрузки/test.txt");
+        System.out.println(p);
+        p.derivate();
         System.out.println(p);
     }
 
@@ -39,6 +41,25 @@ public class Polinom {
         if (monoms.get(degree) == 0) {
             monoms.remove(degree);
         }
+    }
+
+    public void delete(int deg) {
+        monoms.remove(deg);
+    }
+
+    public void sum(Polinom p) {
+        for (int deg : monoms.keySet()) {
+            insert(monoms.get(deg), deg);
+        }
+    }
+
+    public void derivate() {
+        monoms.remove(0);
+        MySortedMap<Integer, Integer> newMonoms = new MySortedMap<>();
+        for (int deg : monoms.keySet()) {
+            newMonoms.put(deg - 1, monoms.get(deg) * deg);
+        }
+        monoms = newMonoms;
     }
 
     @Override
