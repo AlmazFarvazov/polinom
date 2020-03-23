@@ -11,6 +11,7 @@
 *.ctxt
 
 # Mobile Tools for Java (J2ME)
+out/
 .mtj.tmp/
 
 # Package Files #
