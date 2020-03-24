@@ -17,6 +17,7 @@ public class Polinom {
                 String[] line = sc.nextLine().split(" ");
                 int coef = Integer.parseInt(line[0]);
                 int degree = Integer.parseInt(line[1]);
+                if (degree < 0) throw new IllegalMonomException("Degree can't be less than 0!");
                 insert(coef, degree);
             }
         }
