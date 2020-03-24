@@ -3,6 +3,7 @@ package ru.kpfu.itis.j903;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Polinom {
@@ -26,7 +27,21 @@ public class Polinom {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Polinom)) return false;
+        Polinom polinom = (Polinom) o;
+        return monoms.equals(polinom.monoms);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(monoms);
+    }
+
     public void insert (int coef, int degree) {
+        if (degree < 0) throw new IllegalMonomException("Degree can't be less than 0!");
         if (monoms.containsKey(degree)) {
             monoms.put(degree, coef + monoms.get(degree));
         }
@@ -43,8 +58,8 @@ public class Polinom {
     }
 
     public void sum(Polinom p) {
-        for (int deg : monoms.keySet()) {
-            insert(monoms.get(deg), deg);
+        for (int deg : p.monoms.keySet()) {
+            insert(p.monoms.get(deg), deg);
         }
     }
 
