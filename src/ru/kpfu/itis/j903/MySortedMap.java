@@ -61,6 +61,10 @@ public class MySortedMap<K extends Comparable, V> extends AbstractMap<K, V>{
         return null;
     }
 
+    public K getFirstKey() {
+        return data.get(0).getKey();
+    }
+
     @Override
     public boolean isEmpty() {
         return data.isEmpty();

@@ -2,17 +2,11 @@ package ru.kpfu.itis.j903;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Polinom {
     private MySortedMap<Integer, Integer> monoms;
-
-    public static void main(String[] args) {
-        Polinom p  = new Polinom("/home/almaz/Загрузки/test.txt");
-        System.out.println(p);
-        p.derivate();
-        System.out.println(p);
-    }
 
     public Polinom(String path) {
         monoms = new MySortedMap<>();
@@ -60,6 +54,27 @@ public class Polinom {
             newMonoms.put(deg - 1, monoms.get(deg) * deg);
         }
         monoms = newMonoms;
+    }
+
+    public void deleteOdd() {
+        for (int deg : monoms.keySet()) {
+            if (monoms.get(deg) % 2 == 1) {
+                delete(deg);
+            }
+        }
+    }
+
+    public int value(int x) {
+        ArrayList<Integer> firstRow = new ArrayList<>();
+        for (int i = monoms.getFirstKey(); i >= 0; i--) {
+            int c = monoms.containsKey(i) ? monoms.get(i) : 0;
+            firstRow.add(c);
+        }
+        int res = firstRow.get(0);
+        for (int i = 1; i < firstRow.size(); i++) {
+            res = x * res + firstRow.get(i);
+        }
+        return res;
     }
 
     @Override
