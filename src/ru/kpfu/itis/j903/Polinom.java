@@ -3,6 +3,7 @@ package ru.kpfu.itis.j903;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Polinom {
@@ -13,17 +14,22 @@ public class Polinom {
         try(FileReader reader = new FileReader(path))
         {
             Scanner sc = new Scanner(reader);
-            while(sc.hasNext()){
-                String[] line = sc.nextLine().split(" ");
+            String[] line = null;
+            while(sc.hasNext() && (line = sc.nextLine().split(" ")).length == 2){
                 int coef = Integer.parseInt(line[0]);
                 int degree = Integer.parseInt(line[1]);
                 if (degree < 0) throw new IllegalMonomException("Degree can't be less than 0!");
                 insert(coef, degree);
             }
+            sc.nextLine();
         }
         catch(IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+    public Polinom(Map<Integer, Integer> monoms) {
+        this.monoms = new MySortedMap<>(monoms);
     }
 
     public void insert (int coef, int degree) {
