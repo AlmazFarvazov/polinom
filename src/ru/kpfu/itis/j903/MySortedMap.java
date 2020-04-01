@@ -87,7 +87,7 @@ public class MySortedMap<K extends Comparable, V> extends AbstractMap<K, V>{
         }
         if (containsKey(k)) {
             for (Node el : data) {
-                if (el.getKey().equals(k)) {
+                if (el.getKey() == k) {
                     V oldValue = (V) el.getValue();
                     el.setValue(v);
                     return oldValue;
@@ -104,6 +104,7 @@ public class MySortedMap<K extends Comparable, V> extends AbstractMap<K, V>{
             for (int i = 1; i < data.size(); i++) {
                 if (k.compareTo(data.get(i).getKey()) > 0) {
                     data.add(i - 1, new Node<>(k, v));
+                    return null;
                 }
             }
         }
