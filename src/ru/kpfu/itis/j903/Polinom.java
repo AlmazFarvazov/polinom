@@ -85,6 +85,7 @@ public class Polinom {
             char sign = monoms.get(key) > 0 ? '+' : '-';
             s += (sign + " " + Math.abs(monoms.get(key)) + "*x^" + key + " ");
         }
+        if (s.charAt(s.length() - 2) == '0') return s.substring(2, s.length() - 5);
         return s.substring(2);
     }
 }
