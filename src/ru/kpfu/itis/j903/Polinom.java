@@ -30,6 +30,9 @@ public class Polinom {
 
     public Polinom(Map<Integer, Integer> monoms) {
         this.monoms = new MySortedMap<>(monoms);
+        for(int deg: this.monoms.keySet()){
+            if(this.monoms.get(deg) == 0) this.monoms.remove(deg);
+        }
     }
 
     public void insert (int coef, int degree) {
@@ -91,7 +94,7 @@ public class Polinom {
             char sign = monoms.get(key) > 0 ? '+' : '-';
             s += (sign + " " + Math.abs(monoms.get(key)) + "*x^" + key + " ");
         }
-        if (s.charAt(s.length() - 2) == '0') return s.substring(2, s.length() - 5);
+        if (monoms.getLastKey() == 0) return s.substring(2, s.length() - 5);
         return s.substring(2);
     }
 }
