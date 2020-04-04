@@ -13,33 +13,35 @@ public class TestAverage {
         Polinom p;
         Random r = new Random();
         Scanner sc = new Scanner(new FileReader("Test/input.txt"));
+        sc.nextLine();
         long deltaTime = 0;
         long startTime;
         long finishTime;
         long times[] = new long[ITERATIONS];
         double[] averages = new double[100];
         double[] sigmas = new double[100];
-        Polinom[] polArr = new Polinom[2];
+        List<Polinom> list = new ArrayList<>();
+        ArrayList<ArrayList<Integer>> degArrayList = new ArrayList<>();
+        for (int i = 0; i < 1000; i++) {
+            String s[];
+            Map<Integer, Integer> map = new MySortedMap<>();
+            degArrayList.add(new ArrayList<Integer>());
+            while (sc.hasNextLine() && (s = sc.nextLine().split(" ")).length == 2) {
+                int deg = Integer.parseInt(s[1]);
+                degArrayList.get(i).add(deg);
+                int koef = Integer.parseInt(s[0]);
+                if (map.containsKey(deg)) koef += map.get(deg);
+                map.put(deg, koef);
+            }
+            p = new Polinom(map);
+//                        System.out.println(p);
+            list.add(p);
+        }
         for (int n = 10; n <= 1000; n += 10) {
             for (int j = 0; j < ITERATIONS; j++) {
-                ArrayList<ArrayList<Integer>> degArrayList = new ArrayList<>();
-                for (int i = 0; i < 2; i++) {
-                    String s[] = new String[2];
-                        Map<Integer, Integer> map = new MySortedMap<>();
-                        degArrayList.add(new ArrayList<Integer>());
-                        while (sc.hasNextLine() && (s = sc.nextLine().split(" ")).length == 2) {
-                            int deg = Integer.parseInt(s[1]);
-                            degArrayList.get(i).add(deg);
-                            int koef = Integer.parseInt(s[0]);
-                            if (map.containsKey(deg)) koef += map.get(deg);
-                            map.put(deg, koef);
-                        }
-                        p = new Polinom(map);
-//                        System.out.println(p);
-                        polArr[i] = p;
-                }
+                p = list.get(r.nextInt(1000));
                 startTime = System.nanoTime();
-                polArr[1].value(r.nextInt(100));
+                p.value(r.nextInt(100));
                 finishTime = System.nanoTime();
                 deltaTime = finishTime - startTime;
                 times[j] = deltaTime;
