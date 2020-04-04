@@ -2,7 +2,7 @@ package ru.kpfu.itis.j903;
 
 import java.util.*;
 
-public class MySortedMap<K extends Comparable, V> extends AbstractMap<K, V>{
+public class MySortedMap<K extends Comparable, V extends Comparable> extends AbstractMap<K, V>{
 
     private ArrayList<Node<K, V>> data;
 

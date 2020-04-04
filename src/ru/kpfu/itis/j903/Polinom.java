@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Polinom {
     private MySortedMap<Integer, Integer> monoms;
 
-    public Polinom(String path) {
+    public Polinom(String path) throws IllegalMonomException {
         monoms = new MySortedMap<>();
         try(FileReader reader = new FileReader(path))
         {
@@ -28,9 +28,10 @@ public class Polinom {
         }
     }
 
-    public Polinom(Map<Integer, Integer> monoms) {
+    public Polinom(Map<Integer, Integer> monoms) throws IllegalMonomException {
         this.monoms = new MySortedMap<>(monoms);
         for(int deg: this.monoms.keySet()){
+            if(deg < 0) throw new IllegalMonomException("Degree can't be less than 0!");
             if(this.monoms.get(deg) == 0) this.monoms.remove(deg);
         }
     }
