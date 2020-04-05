@@ -40,8 +40,14 @@ public class TestAverage {
         for (int n = 10; n <= 1000; n += 10) {
             for (int j = 0; j < ITERATIONS; j++) {
                 p = list.get(r.nextInt(1000));
+                Polinom rand = list.get(r.nextInt(1000));
+//                int randDeg = r.nextInt(100);
+//                int randCoef = r.nextInt(100);
+//                int d = degArrayList.get(j).get(r.nextInt(degArrayList.get(j).size()));
                 startTime = System.nanoTime();
-                p.value(r.nextInt(100));
+                for(int k = 0; k < p.monoms.size(); k++) {
+                p.sum(rand);
+                }
                 finishTime = System.nanoTime();
                 deltaTime = finishTime - startTime;
                 times[j] = deltaTime;
@@ -51,7 +57,7 @@ public class TestAverage {
             long[] newTimes = Arrays.copyOfRange(times, b, times.length - b);
             averages[n / 10 - 1] = average(newTimes);
             sigmas[n / 10 - 1] = sigma(newTimes, averages[n / 10 - 1]);
-        }
+    }
         try (PrintWriter wr = new PrintWriter("Test/result.csv")) {
             for (int i = 0; i < averages.length; i++) {
                 wr.print(((i + 1) * 10) + ";");

@@ -7,7 +7,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class Polinom {
-    private MySortedMap<Integer, Integer> monoms;
+    public MySortedMap<Integer, Integer> monoms;
 
     public Polinom(String path) throws IllegalMonomException {
         monoms = new MySortedMap<>();
